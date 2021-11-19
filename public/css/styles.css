@@ -1,0 +1,42 @@
+html, body {
+  background-color: #E5E5E5;
+  color: #756464;
+  height: 100%;
+}
+
+nav {
+  background-color: #756464;
+}
+
+.page-content {
+  flex: 1 0 auto;
+}
+
+footer {
+  background-color: #756464;
+}
+
+.card {
+  background-color: #FAF3F3;
+}
+
+.btn1 {
+  background-color: #756464;
+  border-color: #756464;
+}
+
+.btn2 {
+  color: #756464;
+  background-color: #C4C4C4;
+  border-color: #C4C4C4;
+}
+
+.btn1:hover {
+  background-color: #5f5050;
+  border-color: #5f5050;
+}
+
+.btn2:hover {
+  background-color: #a8a7a7;
+  border-color: #a8a7a7;
+}
