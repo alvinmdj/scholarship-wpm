@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::resource('/criterias', CriteriaController::class);
+Route::resource('/criterias', CriteriaController::class)->except('show');
 
 // Temporary Route
 Route::get('/', function () {

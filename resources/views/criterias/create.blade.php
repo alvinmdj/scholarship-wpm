@@ -40,6 +40,7 @@
             @enderror
           </div>
           <div class="col-md-12 text-center">
+            <a href="/criterias" class="btn btn2 btn-primary fw-bold" type="submit">Kembali</a>
             <button class="btn btn1 btn-primary fw-bold" type="submit">Simpan</button>
           </div>
         </div>

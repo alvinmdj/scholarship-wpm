@@ -54,17 +54,6 @@ class CriteriaController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Criteria  $criteria
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Criteria $criteria)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
      * @param  \App\Models\Criteria  $criteria
@@ -72,7 +61,9 @@ class CriteriaController extends Controller
      */
     public function edit(Criteria $criteria)
     {
-        //
+        return view('criterias.edit', [
+            'criteria' => $criteria
+        ]);
     }
 
     /**
@@ -84,7 +75,20 @@ class CriteriaController extends Controller
      */
     public function update(Request $request, Criteria $criteria)
     {
-        //
+        $validatedData = $request->validate([
+            'nama_kriteria' => 'required|max:64',
+            'bobot' => 'required|numeric',
+            'is_beneficial' => 'required'
+        ], [],
+        [
+            'nama_kriteria' => 'name',
+            'bobot' => 'weight',
+            'is_beneficial' => 'type'
+        ]);
+
+        Criteria::where('id', $criteria->id)->update($validatedData);
+
+        return redirect('/criterias')->with('success', 'Criteria has been updated.');
     }
 
     /**
@@ -95,6 +99,8 @@ class CriteriaController extends Controller
      */
     public function destroy(Criteria $criteria)
     {
-        //
+        Criteria::destroy($criteria->id);
+
+        return redirect('/criterias')->with('success', 'Criteria has been deleted.');
     }
 }

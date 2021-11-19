@@ -47,7 +47,7 @@
                 Non-Benefit
               @endif</td>
             <td>
-              <a href="/criterias/{{ $criteria->id }}" class="badge bg-warning"><i class="bi bi-pencil-square"></i></a>
+              <a href="/criterias/{{ $criteria->id }}/edit" class="badge bg-warning"><i class="bi bi-pencil-square"></i></a>
               <form action="/criterias/{{ $criteria->id }}" method="POST" class="d-inline">
                 @method('delete')
                 @csrf
