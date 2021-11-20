@@ -15,8 +15,15 @@ Category model
 id, nama_kategori
 contoh nama kategori: Mahasiswa UMN Angkatan ... / Semester ...
 
+php artisan make:model Result -m
 Result model
 id, peringkat, nim, nama, skor, timestamps
+
+php artisan make:controller ResultController
+ResultController
+index -> view('result.index', [
+
+])
 
 https://laravel.com/docs/8.x/eloquent-relationships#many-to-many
 category_student table
@@ -36,6 +43,9 @@ php artisan make:model Criteria -mf
 
 php artisan make:controller ControllerName --resource --model=ModelName
 php artisan make:controller CriteriaController --resource --model=Criteria
+php artisan make:controller StudentController --resource --model=Student
+php artisan make:controller LoginController
+php artisan make:controller RegisterController
 
 php artisan migrate
 

@@ -9,14 +9,20 @@
       </div>
       <div class="col-6">
         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-          <button class="btn btn2 btn-primary fw-bold">Tambah</button>
+          <a href="/students/create" class="btn btn2 btn-primary fw-bold">Tambah</a>
         </div>
       </div>
     </div>
+    @if (session()->has('success'))
+      <div class="alert alert-success" role="alert">
+        {{ session('success') }}
+      </div>
+    @endif
     <table class="table table-striped">
       <thead>
         <tr>
           <th scope="col">#</th>
+          <th scope="col">Foto</th>
           <th scope="col">NIM</th>
           <th scope="col">Nama</th>
           <th scope="col">IPK</th>
@@ -28,85 +34,40 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <th scope="row">1</th>
-          <td>00000035733</td>
-          <td>Alvin Martin Djong</td>
-          <td>4.00</td>
-          <td>4.00</td>
-          <td>Rp 1.000.000,00</td>
-          <td>10</td>
-          <td>Rp 500.000,00</td>
-          <td>
-            <a href="" class="badge bg-info"><i class="bi bi-eye"></i></a>
-            <a href="" class="badge bg-warning"><i class="bi bi-pencil-square"></i></a>
-            <a href="" class="badge bg-danger"><i class="bi bi-trash"></i></a>
-          </td>
-        </tr>
-        <tr>
-          <th scope="row">2</th>
-          <td>00000035733</td>
-          <td>Alvin Martin Djong</td>
-          <td>4.00</td>
-          <td>4.00</td>
-          <td>Rp 1.000.000,00</td>
-          <td>10</td>
-          <td>Rp 500.000,00</td>
-          <td>
-            <a href="" class="badge bg-info"><i class="bi bi-eye"></i></a>
-            <a href="" class="badge bg-warning"><i class="bi bi-pencil-square"></i></a>
-            <a href="" class="badge bg-danger"><i class="bi bi-trash"></i></a>
-          </td>
-        </tr>
-        <tr>
-          <th scope="row">3</th>
-          <td>00000035733</td>
-          <td>Alvin Martin Djong</td>
-          <td>4.00</td>
-          <td>4.00</td>
-          <td>Rp 1.000.000,00</td>
-          <td>10</td>
-          <td>Rp 500.000,00</td>
-          <td>
-            <a href="" class="badge bg-info"><i class="bi bi-eye"></i></a>
-            <a href="" class="badge bg-warning"><i class="bi bi-pencil-square"></i></a>
-            <a href="" class="badge bg-danger"><i class="bi bi-trash"></i></a>
-          </td>
-        </tr>
-        <tr>
-          <th scope="row">4</th>
-          <td>00000035733</td>
-          <td>Alvin Martin Djong</td>
-          <td>4.00</td>
-          <td>4.00</td>
-          <td>Rp 1.000.000,00</td>
-          <td>10</td>
-          <td>Rp 500.000,00</td>
-          <td>
-            <a href="" class="badge bg-info"><i class="bi bi-eye"></i></a>
-            <a href="" class="badge bg-warning"><i class="bi bi-pencil-square"></i></a>
-            <a href="" class="badge bg-danger"><i class="bi bi-trash"></i></a>
-          </td>
-        </tr>
-        <tr>
-          <th scope="row">5</th>
-          <td>00000035733</td>
-          <td>Alvin Martin Djong</td>
-          <td>4.00</td>
-          <td>4.00</td>
-          <td>Rp 1.000.000,00</td>
-          <td>10</td>
-          <td>Rp 500.000,00</td>
-          <td>
-            <a href="" class="badge bg-info"><i class="bi bi-eye"></i></a>
-            <a href="" class="badge bg-warning"><i class="bi bi-pencil-square"></i></a>
-            <a href="" class="badge bg-danger"><i class="bi bi-trash"></i></a>
-          </td>
-        </tr>
+        @foreach ($students as $student)
+          <tr>
+            <th scope="row">{{ ($students->currentpage()-1) * $students->perpage() + $loop->index + 1 }}</th>
+            <td><img src="{{ asset($student->foto) }}" width="80"></td>
+            <td>{{ $student->nim }}</td>
+            <td>{{ $student->name }}</td>
+            <td>{{ $student->ipk }}</td>
+            <td>{{ $student->ips }}</td>
+            <td>Rp {{ $student->pendapatan_ortu }},00</td>
+            <td>{{ $student->jumlah_saudara }}</td>
+            <td>Rp {{ $student->biaya_hidup }},00</td>
+            <td>
+              <a href="/students/{{ $student->id }}/edit" class="badge bg-warning"><i class="bi bi-pencil-square"></i></a>
+              <form action="/students/{{ $student->id }}" method="POST" class="d-inline">
+                @method('delete')
+                @csrf
+                <button class="badge bg-danger border-0" onclick="return confirm('Are you sure to delete this student?')">
+                  <i class="bi bi-trash"></i>
+                </button>
+              </form>
+            </td>
+          </tr>
+        @endforeach
       </tbody>
     </table>
-    <div class="d-grid gap-2 d-md-flex justify-content-md-end my-5">
-      <button class="btn btn2 btn-primary fw-bold">Proceeds</button>
+    <div class="row mt-4 mb-5">
+      <div class="col-6">
+        {{ $students->links() }}
+      </div>
+      <div class="col-6">
+        <form action="/result" method="POST" class="d-grid gap-2 d-md-flex justify-content-md-end">
+          <button class="btn btn2 btn-primary fw-bold">Proceeds</button>
+        </form>
+      </div>
     </div>
   </div>
 </div>

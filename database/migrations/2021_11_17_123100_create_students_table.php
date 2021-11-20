@@ -24,7 +24,6 @@ class CreateStudentsTable extends Migration
             $table->integer('jumlah_saudara');
             $table->integer('biaya_hidup');
             $table->string('foto')->default('photos/default.jpg');
-            $table->string('logo_univ')->default('logos/default.jpg');
             $table->timestamps();
         });
     }

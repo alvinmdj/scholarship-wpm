@@ -1,7 +1,10 @@
 <?php
 
-use App\Http\Controllers\CriteriaController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Artisan;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\StudentController;
+use App\Http\Controllers\CriteriaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,18 +17,33 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::resource('/criterias', CriteriaController::class)->except('show');
+Route::get('/clear', function() {
+    Artisan::call('optimize:clear');
+    Artisan::call('package:discover');
+    Artisan::call('cache:clear');
+    Artisan::call('config:cache');
+    Artisan::call('view:clear');
+    Artisan::call('view:cache');
+    Artisan::call('route:clear');
+    Artisan::call('route:cache');
+    Artisan::call('event:clear');
+    Artisan::call('event:cache');
+    return "Cleared!";
+});
+
+Route::middleware(['auth'])->group(function () {
+    Route::resource('/students', StudentController::class)->except('show');
+    Route::resource('/criterias', CriteriaController::class)->except('show');
+
+    Route::post('/logout', [LoginController::class, 'logout']);
+});
+
+Route::middleware(['guest'])->group(function () {
+    Route::get('/', [LoginController::class, 'index'])->name('login');
+    Route::post('/', [LoginController::class, 'authenticate']);
+});
 
 // Temporary Route
-Route::get('/', function () {
-    return view('login.index');
-});
-Route::get('/students', function () {
-    return view('students.index');
-});
-Route::get('/create', function () {
-    return view('students.create');
-});
 Route::get('/result', function () {
     return view('results.index');
 });

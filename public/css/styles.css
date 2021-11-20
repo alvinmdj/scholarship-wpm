@@ -4,8 +4,17 @@ html, body {
   height: 100%;
 }
 
-nav {
+#navbar {
   background-color: #756464;
+}
+
+.page-item.active .page-link {
+  background-color: #756464;
+  border-color: #756464;
+}
+
+.page-link {
+  color: #756464;
 }
 
 .page-content {
@@ -18,6 +27,16 @@ footer {
 
 .card {
   background-color: #FAF3F3;
+}
+
+#btnLogout {
+  background: none!important;
+  border: none;
+  cursor: pointer;
+}
+
+.nav-link:hover {
+  font-weight: bold;
 }
 
 .btn1 {

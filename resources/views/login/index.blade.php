@@ -7,11 +7,22 @@
       <div class="card">
         <div class="card-body">
           <h3 class="text-center mb-4">Login Page</h3>
-          <form action="" method="POST">
+          @if(session()->has('authError'))
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+              {{ session('authError') }}
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+          @endif
+          <form action="/" method="POST">
             @csrf
             <div class="mb-3">
               <label for="email" class="form-label">Email address</label>
-              <input type="email" class="form-control" id="email" name="email" placeholder="Email address" autofocus required>
+              <input type="email" value="{{ old('email') }}" class="form-control" id="email" name="email" placeholder="Email address" autofocus required>
+              @error('email')
+                <div class="invalid-feedback">
+                  {{ $message }}
+                </div>
+              @enderror
             </div>
             <div class="mb-3">
               <label for="password" class="form-label">Password</label>

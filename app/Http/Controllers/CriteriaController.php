@@ -39,7 +39,7 @@ class CriteriaController extends Controller
     {
         $validatedData = $request->validate([
             'nama_kriteria' => 'required|max:64',
-            'bobot' => 'required|numeric',
+            'bobot' => 'required|numeric|min:1|max:5',
             'is_beneficial' => 'required'
         ], [],
         [
@@ -77,7 +77,7 @@ class CriteriaController extends Controller
     {
         $validatedData = $request->validate([
             'nama_kriteria' => 'required|max:64',
-            'bobot' => 'required|numeric',
+            'bobot' => 'required|numeric|min:1|max:5',
             'is_beneficial' => 'required'
         ], [],
         [
