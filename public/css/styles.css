@@ -42,6 +42,7 @@ footer {
 .btn1 {
   background-color: #756464;
   border-color: #756464;
+  color: #FFFFFF;
 }
 
 .btn2 {
@@ -53,9 +54,19 @@ footer {
 .btn1:hover {
   background-color: #5f5050;
   border-color: #5f5050;
+  color: #FFFFFF;
 }
 
 .btn2:hover {
   background-color: #a8a7a7;
   border-color: #a8a7a7;
+}
+
+.text-style {
+  color: #756464;
+  text-decoration: none;
+}
+
+.text-style:hover {
+  color: #423939;
 }

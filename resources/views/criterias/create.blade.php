@@ -20,7 +20,7 @@
           <div class="mb-3">
             <label for="bobot" class="form-label">Bobot Kriteria</label>
             <input type="number" value="{{ old('bobot') }}" class="form-control @error('bobot') is-invalid @enderror" id="bobot" name="bobot" placeholder="Bobot Kriteria">
-            <div class="form-text">Jangkauan bobot: 1 - 5</div>
+            <div class="form-text">Jangkauan bobot: 1 - 4</div>
             @error('bobot')
               <div class="invalid-feedback">
                 {{ $message }}

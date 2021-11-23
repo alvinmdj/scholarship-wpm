@@ -3,7 +3,7 @@
 @section('content')
 <div class="row justify-content-center">
   <div class="col-md-12 mt-3">
-    <h3 class="mb-4 fw-bold text-center">Tambah Mahasiswa</h3>
+    <h3 class="mb-4 fw-bold text-center">Ubah Data Mahasiswa</h3>
     <form action="/students/{{ $student->id }}" method="POST" class="row mb-5">
       @method('put')
       @csrf
@@ -98,19 +98,6 @@
                 <input type="number" value="{{ old('jumlah_saudara', $student->jumlah_saudara) }}" class="form-control @error('jumlah_saudara') is-invalid @enderror" id="jumlah_saudara" name="jumlah_saudara" min="0" placeholder="contoh: 2">
                 <div class="input-group-text">orang</div>
                 @error('jumlah_saudara')
-                  <div class="invalid-feedback">
-                    {{ $message }}
-                  </div>
-                @enderror
-              </div>
-            </div>
-            <div class="mb-3">
-              <label class="form-label" for="biaya_hidup">Biaya Hidup per Bulan</label>
-              <div class="input-group">
-                <div class="input-group-text">Rp</div>
-                <input type="number" value="{{ old('biaya_hidup', $student->biaya_hidup) }}" class="form-control @error('biaya_hidup') is-invalid @enderror" id="biaya_hidup" name="biaya_hidup" placeholder="contoh: 500000">
-                <div class="input-group-text">/ bulan</div>
-                @error('biaya_hidup')
                   <div class="invalid-feedback">
                     {{ $message }}
                   </div>

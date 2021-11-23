@@ -3,16 +3,16 @@
 @section('content')
 <div class="row justify-content-center">
   <div class="col-md-8 mt-3 mb-5">
-    <div class="row">
-      <div class="col-6">
+    {{-- <div class="row"> --}}
+      {{-- <div class="col-6"> --}}
         <h3 class="mb-4 fw-bold">Daftar Kriteria</h3>
-      </div>
+      {{-- </div>
       <div class="col-6">
         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
           <a href="/criterias/create" class="btn btn2 btn-primary fw-bold">Tambah Kriteria</a>
         </div>
-      </div>
-    </div>
+      </div> --}}
+    {{-- </div> --}}
     @if (session()->has('success'))
       <div class="alert alert-success" role="alert">
         {{ session('success') }}
@@ -48,13 +48,13 @@
               @endif</td>
             <td>
               <a href="/criterias/{{ $criteria->id }}/edit" class="badge bg-warning"><i class="bi bi-pencil-square"></i></a>
-              <form action="/criterias/{{ $criteria->id }}" method="POST" class="d-inline">
+              {{-- <form action="/criterias/{{ $criteria->id }}" method="POST" class="d-inline">
                 @method('delete')
                 @csrf
                 <button class="badge bg-danger border-0" onclick="return confirm('Are you sure to delete this criteria?')">
                   <i class="bi bi-trash"></i>
                 </button>
-              </form>
+              </form> --}}
             </td>
           </tr>
         @endforeach

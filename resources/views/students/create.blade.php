@@ -63,7 +63,7 @@
             <h3 class="text-center mb-4">Informasi</h3>
             <div class="mb-3">
               <label for="ipk" class="form-label">IPK</label>
-              <input type="number" value="{{ old('ipk') }}" class="form-control @error('ipk') is-invalid @enderror" id="ipk" name="ipk" min="0" max="4" placeholder="contoh: 3.15">
+              <input type="number" step="0.01" value="{{ old('ipk') }}" class="form-control @error('ipk') is-invalid @enderror" id="ipk" name="ipk" min="0" max="4" placeholder="contoh: 3.15">
               @error('ipk')
                 <div class="invalid-feedback">
                   {{ $message }}
@@ -72,7 +72,7 @@
             </div>
             <div class="mb-3">
               <label for="ips" class="form-label">IPS</label>
-              <input type="number" value="{{ old('ips') }}" class="form-control @error('ips') is-invalid @enderror" id="ips" name="ips" min="0" max="4" placeholder="contoh: 3.96">
+              <input type="number" step="0.01" value="{{ old('ips') }}" class="form-control @error('ips') is-invalid @enderror" id="ips" name="ips" min="0" max="4" placeholder="contoh: 3.96">
               @error('ips')
                 <div class="invalid-feedback">
                   {{ $message }}
@@ -94,22 +94,10 @@
             <div class="mb-3">
               <label class="form-label" for="jumlah_saudara">Jumlah Saudara Kandung yang Dibiayai</label>
               <div class="input-group">
+                <div class="input-group-text">Dari</div>
                 <input type="number" value="{{ old('jumlah_saudara') }}" class="form-control @error('jumlah_saudara') is-invalid @enderror" id="jumlah_saudara" name="jumlah_saudara" min="0" placeholder="contoh: 2">
-                <div class="input-group-text">orang</div>
+                <div class="input-group-text">bersaudara</div>
                 @error('jumlah_saudara')
-                  <div class="invalid-feedback">
-                    {{ $message }}
-                  </div>
-                @enderror
-              </div>
-            </div>
-            <div class="mb-3">
-              <label class="form-label" for="biaya_hidup">Biaya Hidup per Bulan</label>
-              <div class="input-group">
-                <div class="input-group-text">Rp</div>
-                <input type="number" value="{{ old('biaya_hidup') }}" class="form-control @error('biaya_hidup') is-invalid @enderror" id="biaya_hidup" name="biaya_hidup" placeholder="contoh: 500000">
-                <div class="input-group-text">/ bulan</div>
-                @error('biaya_hidup')
                   <div class="invalid-feedback">
                     {{ $message }}
                   </div>

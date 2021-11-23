@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Artisan;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\CriteriaController;
+use App\Http\Controllers\ResultController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,7 +34,11 @@ Route::get('/clear', function() {
 
 Route::middleware(['auth'])->group(function () {
     Route::resource('/students', StudentController::class)->except('show');
-    Route::resource('/criterias', CriteriaController::class)->except('show');
+    Route::resource('/criterias', CriteriaController::class)->except('show', 'destroy', 'store', 'create');
+
+    Route::get('/results', [ResultController::class, 'index']);
+    Route::get('/results/{label}', [ResultController::class, 'show'])->name('result');
+    Route::post('/calculate', [ResultController::class, 'calculate']);
 
     Route::post('/logout', [LoginController::class, 'logout']);
 });
@@ -41,9 +46,4 @@ Route::middleware(['auth'])->group(function () {
 Route::middleware(['guest'])->group(function () {
     Route::get('/', [LoginController::class, 'index'])->name('login');
     Route::post('/', [LoginController::class, 'authenticate']);
-});
-
-// Temporary Route
-Route::get('/result', function () {
-    return view('results.index');
 });

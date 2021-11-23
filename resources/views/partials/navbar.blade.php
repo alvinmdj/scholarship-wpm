@@ -20,6 +20,9 @@
           <li class="nav-item pe-3">
             <a class="nav-link active" aria-current="page" href="/criterias">Daftar Kriteria</a>
           </li>
+          <li class="nav-item pe-3">
+            <a class="nav-link active" aria-current="page" href="/results">Daftar Riwayat</a>
+          </li>
         </ul>
         <div class="d-flex">
           <span class="text-white">Halo, {{ auth()->user()->name }}</span>

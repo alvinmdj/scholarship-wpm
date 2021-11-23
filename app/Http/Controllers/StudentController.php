@@ -15,7 +15,7 @@ class StudentController extends Controller
     public function index()
     {
         return view('students.index', [
-            'students' => Student::paginate(10),
+            'students' => Student::paginate(5),
         ]);
     }
 
@@ -41,10 +41,10 @@ class StudentController extends Controller
             'name' => 'required|max:64',
             'nim' => 'required',
             'alamat' => 'required|string',
-            'ipk' => 'required|numeric',
-            'ips' => 'required|numeric',
+            'ipk' => 'required|numeric|min:3.5|max:4',
+            'ips' => 'required|numeric|min:3.5|max:4',
             'pendapatan_ortu' => 'required|numeric',
-            'jumlah_saudara' => 'required|numeric',
+            'jumlah_saudara' => 'required|numeric|min:1',
             'biaya_hidup' => 'required|numeric',
         ], [],
         [
@@ -99,10 +99,10 @@ class StudentController extends Controller
             'name' => 'required|max:64',
             'nim' => 'unique|students',
             'alamat' => 'required|string',
-            'ipk' => 'required|numeric',
-            'ips' => 'required|numeric',
+            'ipk' => 'required|numeric|min:3.5|max:4',
+            'ips' => 'required|numeric|min:3.5|max:4',
             'pendapatan_ortu' => 'required|numeric',
-            'jumlah_saudara' => 'required|numeric',
+            'jumlah_saudara' => 'required|numeric|min:1',
             'biaya_hidup' => 'required|numeric',
         ], [],
         [

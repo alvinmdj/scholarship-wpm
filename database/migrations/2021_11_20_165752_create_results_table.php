@@ -15,10 +15,10 @@ class CreateResultsTable extends Migration
     {
         Schema::create('results', function (Blueprint $table) {
             $table->id();
-            $table->integer('peringkat');
+            $table->string('label');
             $table->string('nim');
             $table->string('nama');
-            $table->double('skor', 3, 1);
+            $table->double('skor', 3, 2);
             $table->timestamps();
         });
     }
