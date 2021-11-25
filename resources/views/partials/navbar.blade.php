@@ -32,7 +32,7 @@
       <div class="collapse navbar-collapse justify-content-md-center" id="navbar">
         <ul class="navbar-nav">
           <li class="nav-item">
-            <a class="nav-link active fw-bold" aria-current="page" href="/">Sistem Pakar Penentuan Calon Penerima Beasiswa Bantuan Biaya</a>
+            <a class="nav-link active fw-bold" aria-current="page" href="/">Sistem Pakar Penentuan Calon Penerima Beasiswa Prestasi</a>
           </li>
         </ul>
       </div>
