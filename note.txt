@@ -1,4 +1,14 @@
-"laravel/framework": "^8.65",
+---
+000webhost
+
+Website Username scholarshipwpm
+Website Password nEdHKpA6o#7&m7LmN*Q5
+
+DB Name 	id18005960_scholarshipwm
+DB Username 	id18005960_scholarshipwpm
+DB Host		localhost
+Password	&_QJE1>|(g8a-1[&
+---
 
 User model
 id, name, username, email, password, is_admin, timestamps
