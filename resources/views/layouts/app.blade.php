@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.0/font/bootstrap-icons.css">
     <link rel="stylesheet" href="/css/styles.css">
 
-    <title>Sistem Pakar | Sistem Pendukung Keputusan Penerima Beasiswa Bantuan Biaya</title>
+    <title>Sistem Pakar | Sistem Pendukung Keputusan Penerima Beasiswa Prestasi</title>
   </head>
   <body class="d-flex flex-column">
     @include('partials.navbar')
