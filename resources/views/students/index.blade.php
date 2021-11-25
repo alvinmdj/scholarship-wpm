@@ -33,28 +33,34 @@
         </tr>
       </thead>
       <tbody>
-        @foreach ($students as $student)
+        @if (count($students))
+          @foreach ($students as $student)
+            <tr>
+              <th scope="row">{{ ($students->currentpage()-1) * $students->perpage() + $loop->index + 1 }}</th>
+              <td><img src="{{ asset('photos/' . $student->foto) }}" width="80"></td>
+              <td>{{ $student->nim }}</td>
+              <td>{{ $student->name }}</td>
+              <td>{{ $student->ipk }}</td>
+              <td>{{ $student->ips }}</td>
+              <td>Rp {{ number_format($student->pendapatan_ortu, 2, ",", ".") }}</td>
+              <td>{{ $student->jumlah_saudara }}</td>
+              <td>
+                <a href="/students/{{ $student->id }}/edit" class="badge bg-warning"><i class="bi bi-pencil-square"></i></a>
+                <form action="/students/{{ $student->id }}" method="POST" class="d-inline">
+                  @method('delete')
+                  @csrf
+                  <button class="badge bg-danger border-0" onclick="return confirm('Are you sure to delete this student?')">
+                    <i class="bi bi-trash"></i>
+                  </button>
+                </form>
+              </td>
+            </tr>
+          @endforeach
+        @else
           <tr>
-            <th scope="row">{{ ($students->currentpage()-1) * $students->perpage() + $loop->index + 1 }}</th>
-            <td><img src="{{ asset($student->foto) }}" width="80"></td>
-            <td>{{ $student->nim }}</td>
-            <td>{{ $student->name }}</td>
-            <td>{{ $student->ipk }}</td>
-            <td>{{ $student->ips }}</td>
-            <td>Rp {{ $student->pendapatan_ortu }},00</td>
-            <td>{{ $student->jumlah_saudara }}</td>
-            <td>
-              <a href="/students/{{ $student->id }}/edit" class="badge bg-warning"><i class="bi bi-pencil-square"></i></a>
-              <form action="/students/{{ $student->id }}" method="POST" class="d-inline">
-                @method('delete')
-                @csrf
-                <button class="badge bg-danger border-0" onclick="return confirm('Are you sure to delete this student?')">
-                  <i class="bi bi-trash"></i>
-                </button>
-              </form>
-            </td>
+            <td colspan="9" class="text-center">Belum ada mahasiswa...</td>
           </tr>
-        @endforeach
+        @endif
       </tbody>
     </table>
     <div class="row mt-4 mb-5">

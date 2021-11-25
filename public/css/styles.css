@@ -4,7 +4,7 @@ html, body {
   height: 100%;
 }
 
-#navbar {
+#navbar-frame {
   background-color: #756464;
 }
 
@@ -69,4 +69,8 @@ footer {
 
 .text-style:hover {
   color: #423939;
+}
+
+.history:hover {
+  background-color: #ffe4e4;
 }

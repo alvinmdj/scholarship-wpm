@@ -4,7 +4,7 @@
 <div class="row justify-content-center">
   <div class="col-md-12 mt-3">
     <h3 class="mb-4 fw-bold text-center">Ubah Data Mahasiswa</h3>
-    <form action="/students/{{ $student->id }}" method="POST" class="row mb-5">
+    <form action="/students/{{ $student->id }}" method="POST" class="row mb-5" enctype="multipart/form-data">
       @method('put')
       @csrf
       <div class="col-sm-7 mt-3">
@@ -12,9 +12,12 @@
           <div class="card-body">
             <h3 class="text-center mb-4">Data Diri</h3>
             <div class="row mb-3">
-              <label for="formFile" class="col-sm-4 col-form-label">Foto Kandidat</label>
+              <div>
+                  <img class="img-preview img-fluid mb-3 col-sm-3">
+              </div>
+              <label for="foto" class="col-sm-4 col-form-label">Foto Kandidat</label>
               <div class="col-sm-8">
-                <input class="form-control" type="file" id="formFile" name="foto">
+                <input class="form-control @error('foto') is-invalid @enderror" type="file" id="foto" name="foto" onchange="previewImage()">
                 @error('foto')
                   <div class="invalid-feedback">
                     {{ $message }}
@@ -84,7 +87,7 @@
               <label class="form-label" for="pendapatan_ortu">Pendapatan Orang Tua</label>
               <div class="input-group">
                 <div class="input-group-text">Rp</div>
-                <input type="number" value="{{ old('pendapatan_ortu', $student->pendapatan_ortu) }}" class="form-control @error('pendapatan_ortu') is-invalid @enderror" id="pendapatan_ortu" name="pendapatan_ortu" placeholder="contoh: 1000000">
+                <input type="number" value="{{ old('pendapatan_ortu', $student->pendapatan_ortu) }}" class="form-control @error('pendapatan_ortu') is-invalid @enderror" id="pendapatan_ortu" name="pendapatan_ortu" min="0" placeholder="contoh: 1000000">
                 @error('pendapatan_ortu')
                   <div class="invalid-feedback">
                     {{ $message }}
@@ -114,4 +117,19 @@
     </form>
   </div>
 </div>
+<script>
+  const previewImage = () => {
+    const image = document.querySelector('#foto');
+    const imgPreview = document.querySelector('.img-preview');
+    
+    imgPreview.style.display = 'block';
+
+    const oFReader = new FileReader();
+    oFReader.readAsDataURL(image.files[0]);
+
+    oFReader.onload = function(oFREvent) {
+      imgPreview.src = oFREvent.target.result;
+    }
+  };
+</script>
 @endsection

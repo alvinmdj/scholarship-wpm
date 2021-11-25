@@ -7,25 +7,32 @@
     <table class="table table-striped">
       <thead>
         <tr>
-          <th scope="col">Peringkat</th>
-          <th scope="col">NIM</th>
-          <th scope="col">Nama</th>
-          <th scope="col">Skor</th>
+          <th scope="col" class="text-center">NIM</th>
+          <th scope="col" class="text-center">Nama</th>
+          <th scope="col" class="text-center">Skor</th>
+          <th scope="col" class="text-center">Peringkat</th>
         </tr>
       </thead>
       <tbody>
         @foreach ($results as $result)
           <tr>
-            <th scope="row">{{ $loop->iteration }}</th>
-            <td>{{ $result->nim }}</td>
-            <td>{{ $result->nama }}</td>
-            <td>{{ $result->skor }}</td>
+            <th class="text-center">{{ $result->nim }}</th>
+            <td class="text-center">{{ $result->nama }}</td>
+            <td class="text-center">{{ $result->skor }}</td>
+            <td class="text-center">{{ ($results->currentpage()-1) * $results->perpage() + $loop->index + 1  }}</td>
           </tr>
         @endforeach
       </tbody>
     </table>
-    <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-3 mb-5">
-      <a href="/students" class="btn btn2 btn-primary fw-bold">Kembali</a>
+    <div class="row mt-4 mb-5">
+      <div class="col-6">
+        {{ $results->links() }}
+      </div>
+      <div class="col-6">
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+          <a href="/results" class="btn btn2 btn-primary fw-bold">Ke Daftar Riwayat</a>
+        </div>
+      </div>
     </div>
   </div>
 </div>

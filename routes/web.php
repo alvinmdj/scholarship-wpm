@@ -18,6 +18,22 @@ use App\Http\Controllers\ResultController;
 |
 */
 
+Route::middleware(['auth'])->group(function () {
+    Route::resource('/students', StudentController::class)->except('show');
+    Route::resource('/criterias', CriteriaController::class)->except('show', 'destroy', 'store', 'create');
+
+    Route::get('/results', [ResultController::class, 'index']);
+    Route::get('/results/{slug}', [ResultController::class, 'show'])->name('result');
+    Route::post('/calculate', [ResultController::class, 'calculate']);
+
+    Route::post('/logout', [LoginController::class, 'logout']);
+});
+
+Route::middleware(['guest'])->group(function () {
+    Route::get('/', [LoginController::class, 'index'])->name('login');
+    Route::post('/', [LoginController::class, 'authenticate']);
+});
+
 Route::get('/clear', function() {
     Artisan::call('optimize:clear');
     Artisan::call('package:discover');
@@ -30,20 +46,4 @@ Route::get('/clear', function() {
     Artisan::call('event:clear');
     Artisan::call('event:cache');
     return "Cleared!";
-});
-
-Route::middleware(['auth'])->group(function () {
-    Route::resource('/students', StudentController::class)->except('show');
-    Route::resource('/criterias', CriteriaController::class)->except('show', 'destroy', 'store', 'create');
-
-    Route::get('/results', [ResultController::class, 'index']);
-    Route::get('/results/{label}', [ResultController::class, 'show'])->name('result');
-    Route::post('/calculate', [ResultController::class, 'calculate']);
-
-    Route::post('/logout', [LoginController::class, 'logout']);
-});
-
-Route::middleware(['guest'])->group(function () {
-    Route::get('/', [LoginController::class, 'index'])->name('login');
-    Route::post('/', [LoginController::class, 'authenticate']);
 });

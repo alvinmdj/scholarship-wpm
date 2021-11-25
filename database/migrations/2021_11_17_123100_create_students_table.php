@@ -22,7 +22,7 @@ class CreateStudentsTable extends Migration
             $table->double('ips', 2, 1);
             $table->integer('pendapatan_ortu');
             $table->integer('jumlah_saudara');
-            $table->string('foto')->default('photos/default.jpg');
+            $table->string('foto')->default('default.jpg');
             $table->timestamps();
         });
     }

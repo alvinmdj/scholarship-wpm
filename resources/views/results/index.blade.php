@@ -9,17 +9,17 @@
         @if (count($results))
           @foreach ($results as $key => $result)
             @if ($key === 0)
-              <div class="card mb-3">
+              <div class="card mb-3 history">
                 <div class="card-body">
-                  <a class="text-style fw-bold" href="/results/{{ $result->label }}">{{ $result->label }}</a>
+                  <a class="text-style fw-bold" href="/results/{{ $result->slug }}">{{ $result->label }}</a>
                   <span>(Dibuat pada {{ date_format($result->created_at, 'd F Y') }})</span>
                 </div>
               </div>
             @else
               @if ($results[$key]->label !== $results[$key-1]->label)
-                <div class="card mb-3">
+                <div class="card mb-3 history">
                   <div class="card-body">
-                    <a class="text-style fw-bold" href="/results/{{ $result->label }}">{{ $result->label }}</a>
+                    <a class="text-style fw-bold" href="/results/{{ $result->slug }}">{{ $result->label }}</a>
                     <span>(Dibuat pada {{ date_format($result->created_at, 'd F Y') }})</span>
                   </div>
                 </div>

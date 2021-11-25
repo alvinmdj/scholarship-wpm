@@ -17,11 +17,11 @@ class StudentFactory extends Factory
             'name' => $this->faker->name(),
             'nim' => $this->faker->randomNumber(5, true),
             'alamat' => $this->faker->address(),
-            'ipk' => $this->faker->randomFloat(2, 1, 4),
-            'ips' => $this->faker->randomFloat(2, 1, 4),
+            'ipk' => $this->faker->randomFloat(2, 3.5, 4),
+            'ips' => $this->faker->randomFloat(2, 3.5, 4),
             'pendapatan_ortu' => $this->faker->numberBetween(1000000, 100000000),
             'jumlah_saudara' => $this->faker->numberBetween(1, 5),
-            'foto' => 'photos/default.jpg'
+            'foto' => 'default.jpg'
         ];
     }
 }

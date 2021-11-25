@@ -1,3 +1,5 @@
+"laravel/framework": "^8.65",
+
 User model
 id, name, username, email, password, is_admin, timestamps
 contoh role: USR || ADM --> 0 || 1 , 1 = admin
@@ -17,7 +19,7 @@ contoh nama kategori: Mahasiswa UMN Angkatan ... / Semester ...
 
 php artisan make:model Result -m
 Result model
-id, peringkat, nim, nama, skor, timestamps
+id, slug, label, nim, nama, skor, timestamps
 
 php artisan make:controller ResultController
 ResultController

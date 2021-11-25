@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Criteria;
 use App\Models\Result;
 use App\Models\Student;
+use App\Models\Criteria;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 
 class ResultController extends Controller
@@ -15,9 +16,9 @@ class ResultController extends Controller
         ]);
     }
 
-    public function show($label) {
+    public function show($slug) {
         return view('results.show', [
-            'results' => Result::where('label', $label)->orderBy('skor', 'desc')->get()
+            'results' => Result::where('slug', $slug)->orderBy('skor', 'desc')->paginate(10)
         ]);
     }
 
@@ -25,8 +26,13 @@ class ResultController extends Controller
         $request->validate([
             'label' => 'required|unique:results'
         ], [], [
-            'label' => 'nama'
+            'label' => 'label'
         ]);
+
+        // Membuat slug berdasarkan label
+        $slug = Str::of($request->label)->slug('-');
+        $similarSlug = Result::where('slug', $slug)->get();
+        if(count($similarSlug)) $slug = $slug . '-' . uniqid();
 
         $students = Student::all();
         $criterias = Criteria::all();
@@ -62,16 +68,58 @@ class ResultController extends Controller
 
         // Array untuk nilai dari setiap kriteria
         foreach ($students as $i => $value) {
-            $c1[$i] = $value->ipk;
+            if($value->ipk <= 3.6) {
+                $c1[$i] = 1;
+            }
+            if($value->ipk > 3.6 && $value->ipk <= 3.7) {
+                $c1[$i] = 3;
+            }
+            if($value->ipk > 3.7 && $value->ipk <= 3.8) {
+                $c1[$i] = 5;
+            }
+            if($value->ipk > 3.8 && $value->ipk <= 3.9) {
+                $c1[$i] = 7;
+            }
+            if($value->ipk > 3.9) {
+                $c1[$i] = 9;
+            }
         }
         foreach ($students as $i => $value) {
-            $c2[$i] = $value->ips;
+            if($value->ips <= 3.6) {
+                $c2[$i] = 1;
+            }
+            if($value->ips > 3.6 && $value->ips <= 3.7) {
+                $c2[$i] = 3;
+            }
+            if($value->ips > 3.7 && $value->ips <= 3.8) {
+                $c2[$i] = 5;
+            }
+            if($value->ips > 3.8 && $value->ips <= 3.9) {
+                $c2[$i] = 7;
+            }
+            if($value->ips > 3.9) {
+                $c2[$i] = 9;
+            }
         }
         foreach ($students as $i => $value) {
             $c3[$i] = $value->pendapatan_ortu;
         }
         foreach ($students as $i => $value) {
-            $c4[$i] = $value->jumlah_saudara;
+            if($value->jumlah_saudara == 0) {
+                $c4[$i] = 1;
+            }
+            if($value->jumlah_saudara == 1 || $value->jumlah_saudara == 2) {
+                $c4[$i] = 3;
+            }
+            if($value->jumlah_saudara == 3 || $value->jumlah_saudara == 4) {
+                $c4[$i] = 5;
+            }
+            if($value->jumlah_saudara == 5 || $value->jumlah_saudara == 6) {
+                $c4[$i] = 7;
+            }
+            if($value->jumlah_saudara > 6) {
+                $c4[$i] = 9;
+            }
         }
         
         // Menentukan nilai min dan max berdasarkan jenis kriteria
@@ -138,7 +186,7 @@ class ResultController extends Controller
         }
         
         foreach ($c4_R as $i => $value){
-            $c4_V[$i] = round(pow($c4_R[$i], $w_c[2]), 2);
+            $c4_V[$i] = round(pow($c4_R[$i], $w_c[3]), 2);
         }
         
         // Hitung skor untuk setiap alternatif dengan menggalikan setiap atribut yang diperoleh (M)
@@ -146,16 +194,17 @@ class ResultController extends Controller
             $performance_score[$i] = round($c1_V[$i] * $c2_V[$i] * $c3_V[$i] * $c4_V[$i], 2);
         }
 
-        // Simpan
+        // Simpan ke database
         foreach ($students as $i => $value) {
             Result::create([
                 'label' => $request->label,
+                'slug' => $slug,
                 'nim' => $value->nim,
                 'nama' => $value->name,
                 'skor' => $performance_score[$i]
             ]);
         }
 
-        return $this->show($request->label);
+        return redirect('/results/' . $slug);
     }
 }

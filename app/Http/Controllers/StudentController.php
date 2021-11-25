@@ -44,8 +44,8 @@ class StudentController extends Controller
             'ipk' => 'required|numeric|min:3.5|max:4',
             'ips' => 'required|numeric|min:3.5|max:4',
             'pendapatan_ortu' => 'required|numeric',
-            'jumlah_saudara' => 'required|numeric|min:1',
-            'biaya_hidup' => 'required|numeric',
+            'jumlah_saudara' => 'required|numeric',
+            'foto' => 'image|file|max:1024',
         ], [],
         [
             'nim' => 'NIM',
@@ -54,24 +54,19 @@ class StudentController extends Controller
             'ips' => 'IPS',
             'pendapatan_ortu' => 'pendapatan orang tua',
             'jumlah_saudara' => 'jumlah saudara',
-            'biaya_hidup' => 'biaya hidup'
         ]);
+
+        if($request->file('foto')) {
+            $file = $request->foto;
+            $fileName = uniqid() . '.' . $file->extension();
+            $file->move(public_path('photos'), $fileName);
+            $validatedData['foto'] = $fileName;
+        }
 
         Student::create($validatedData);
 
         return redirect('/students')->with('success', 'New student has been added.');
     }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Student  $student
-     * @return \Illuminate\Http\Response
-     */
-    // public function show(Student $student)
-    // {
-    //     //
-    // }
 
     /**
      * Show the form for editing the specified resource.
@@ -102,8 +97,8 @@ class StudentController extends Controller
             'ipk' => 'required|numeric|min:3.5|max:4',
             'ips' => 'required|numeric|min:3.5|max:4',
             'pendapatan_ortu' => 'required|numeric',
-            'jumlah_saudara' => 'required|numeric|min:1',
-            'biaya_hidup' => 'required|numeric',
+            'jumlah_saudara' => 'required|numeric',
+            'foto' => 'image|file|max:1024',
         ], [],
         [
             'nim' => 'NIM',
@@ -112,12 +107,22 @@ class StudentController extends Controller
             'ips' => 'IPS',
             'pendapatan_ortu' => 'pendapatan orang tua',
             'jumlah_saudara' => 'jumlah saudara',
-            'biaya_hidup' => 'biaya hidup'
         ]);
+
+        if($request->file('foto')) {
+            if($student->foto !== 'default.jpg') {
+                unlink(public_path('photos') . '/' . $student->foto);
+            }
+            
+            $file = $request->foto;
+            $fileName = uniqid() . '.' . $file->extension();
+            $file->move(public_path('photos'), $fileName);
+            $validatedData['foto'] = $fileName;
+        }
 
         Student::where('id', $student->id)->update($validatedData);
 
-        return redirect('/students')->with('success', 'New student has been updated.');
+        return redirect('/students')->with('success', 'Student has been updated.');
     }
 
     /**
@@ -128,6 +133,10 @@ class StudentController extends Controller
      */
     public function destroy(Student $student)
     {
+        if($student->foto !== 'default.jpg') {
+            unlink(public_path('photos') . '/' . $student->foto);
+        }
+
         Student::destroy($student->id);
 
         return redirect('/students')->with('success', 'Student has been deleted.');
