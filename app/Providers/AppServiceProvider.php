@@ -15,7 +15,13 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         // Register the new public path for production.
-        // Check the content of this file inside file manager of the deployed application.
+
+        // The content of this register method for the deployed application as follow:
+        // $this->app->bind('path.public', function() {
+        //     return realpath(base_path() . '/../public_html');
+        // });
+
+        // Try 'dd(base_path(), public_path());' when needed, to look at the correct path
     }
 
     /**
