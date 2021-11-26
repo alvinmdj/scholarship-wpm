@@ -18,8 +18,8 @@ class CreateStudentsTable extends Migration
             $table->string('name');
             $table->string('nim')->unique();
             $table->string('alamat');
-            $table->double('ipk', 2, 1);
-            $table->double('ips', 2, 1);
+            $table->double('ipk', 3, 2);
+            $table->double('ips', 3, 2);
             $table->integer('pendapatan_ortu');
             $table->integer('jumlah_saudara');
             $table->string('foto')->default('default.jpg');
