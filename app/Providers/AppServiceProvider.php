@@ -14,7 +14,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        // Register the new public path for production.
+        // Check the content of this file inside file manager of the deployed application.
     }
 
     /**
