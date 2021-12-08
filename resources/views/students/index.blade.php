@@ -18,51 +18,53 @@
         {{ session('success') }}
       </div>
     @endif
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th scope="col">#</th>
-          <th scope="col">Foto</th>
-          <th scope="col">NIM</th>
-          <th scope="col">Nama</th>
-          <th scope="col">IPK</th>
-          <th scope="col">IPS</th>
-          <th scope="col">Pendapatan Orang Tua</th>
-          <th scope="col">Jumlah Saudara Kandung</th>
-          <th scope="col">Action</th>
-        </tr>
-      </thead>
-      <tbody>
-        @if (count($students))
-          @foreach ($students as $student)
-            <tr>
-              <th scope="row">{{ ($students->currentpage()-1) * $students->perpage() + $loop->index + 1 }}</th>
-              <td><img src="{{ asset('photos/' . $student->foto) }}" width="80"></td>
-              <td>{{ $student->nim }}</td>
-              <td>{{ $student->name }}</td>
-              <td>{{ $student->ipk }}</td>
-              <td>{{ $student->ips }}</td>
-              <td>Rp {{ number_format($student->pendapatan_ortu, 2, ",", ".") }}</td>
-              <td>{{ $student->jumlah_saudara }}</td>
-              <td>
-                <a href="/students/{{ $student->id }}/edit" class="badge bg-warning"><i class="bi bi-pencil-square"></i></a>
-                <form action="/students/{{ $student->id }}" method="POST" class="d-inline">
-                  @method('delete')
-                  @csrf
-                  <button class="badge bg-danger border-0" onclick="return confirm('Are you sure to delete this student?')">
-                    <i class="bi bi-trash"></i>
-                  </button>
-                </form>
-              </td>
-            </tr>
-          @endforeach
-        @else
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
           <tr>
-            <td colspan="9" class="text-center">Belum ada mahasiswa...</td>
+            <th scope="col">#</th>
+            <th scope="col">Foto</th>
+            <th scope="col">NIM</th>
+            <th scope="col">Nama</th>
+            <th scope="col">IPK</th>
+            <th scope="col">IPS</th>
+            <th scope="col">Pendapatan Orang Tua</th>
+            <th scope="col">Jumlah Saudara Kandung</th>
+            <th scope="col">Action</th>
           </tr>
-        @endif
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          @if (count($students))
+            @foreach ($students as $student)
+              <tr>
+                <th scope="row">{{ ($students->currentpage()-1) * $students->perpage() + $loop->index + 1 }}</th>
+                <td><img src="{{ asset('photos/' . $student->foto) }}" width="80"></td>
+                <td>{{ $student->nim }}</td>
+                <td>{{ $student->name }}</td>
+                <td>{{ $student->ipk }}</td>
+                <td>{{ $student->ips }}</td>
+                <td>Rp {{ number_format($student->pendapatan_ortu, 2, ",", ".") }}</td>
+                <td>{{ $student->jumlah_saudara }}</td>
+                <td>
+                  <a href="/students/{{ $student->id }}/edit" class="badge bg-warning"><i class="bi bi-pencil-square"></i></a>
+                  <form action="/students/{{ $student->id }}" method="POST" class="d-inline">
+                    @method('delete')
+                    @csrf
+                    <button class="badge bg-danger border-0" onclick="return confirm('Are you sure to delete this student?')">
+                      <i class="bi bi-trash"></i>
+                    </button>
+                  </form>
+                </td>
+              </tr>
+            @endforeach
+          @else
+            <tr>
+              <td colspan="9" class="text-center">Belum ada mahasiswa...</td>
+            </tr>
+          @endif
+        </tbody>
+      </table>
+    </div>
     <div class="row mt-4 mb-5">
       <div class="col-6">
         {{ $students->links() }}
