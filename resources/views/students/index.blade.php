@@ -66,10 +66,10 @@
       </table>
     </div>
     <div class="row mt-4 mb-5">
-      <div class="col-6">
+      <div class="col-sm-6">
         {{ $students->links() }}
       </div>
-      <div class="col-6">
+      <div class="col-sm-6">
         <form action="/result" method="POST" class="d-grid gap-2 d-md-flex justify-content-md-end">
           <button type="button" class="btn btn1" data-bs-toggle="modal" data-bs-target="#resultModal">
             Proceeds
